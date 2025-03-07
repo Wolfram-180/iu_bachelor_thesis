@@ -6,7 +6,10 @@ import 'package:iu_bachelor_thesis/models/product.dart';
 class ProductService {
   final String url;
 
-  ProductService({this.url = "products.json"});
+  ProductService({
+    this.url =
+        "https://raw.githubusercontent.com/Wolfram-180/iu_bachelor_thesis/refs/heads/main/data/products.json",
+  });
 
   Future<List<Product>> fetchProducts() async {
     final result = await get(Uri.parse(url));
