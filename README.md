@@ -8,5 +8,4 @@ Study program: Computer Science
 
 Topic: State management in Flutter applications: a comparative study
 
-Sergei Ulvis
-Enrolment number: 32113004
+Sergei Ulvis (enrolment number: 32113004)
