@@ -8,7 +8,7 @@ import 'cart_button_overlay.dart';
 import 'product_list.dart';
 
 class ProductListScreen extends StatelessWidget {
-  const ProductListScreen({Key? key}) : super(key: key);
+  const ProductListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ProductListScreen extends StatelessWidget {
 }
 
 class _ProductListSwitch extends StatelessWidget {
-  const _ProductListSwitch({Key? key}) : super(key: key);
+  const _ProductListSwitch();
 
   @override
   Widget build(BuildContext context) {

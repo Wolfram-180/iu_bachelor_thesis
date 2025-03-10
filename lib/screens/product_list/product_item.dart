@@ -6,7 +6,7 @@ import 'package:iu_bachelor_thesis/widgets/number_picker.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
-  const ProductItem({Key? key, required this.product}) : super(key: key);
+  const ProductItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {

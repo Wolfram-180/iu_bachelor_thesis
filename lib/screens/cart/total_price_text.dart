@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:iu_bachelor_thesis/store/cart_store.dart';
 
 class TotalPriceText extends StatelessWidget {
-  const TotalPriceText({Key? key}) : super(key: key);
+  const TotalPriceText({super.key});
 
   @override
   Widget build(BuildContext context) {

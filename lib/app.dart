@@ -13,8 +13,7 @@ import 'store/product_loading_store.dart';
 
 class IUBachelorThesisApp extends StatelessWidget {
   final ProductService productService;
-  const IUBachelorThesisApp({Key? key, required this.productService})
-    : super(key: key);
+  const IUBachelorThesisApp({super.key, required this.productService});
 
   @override
   Widget build(BuildContext context) {
