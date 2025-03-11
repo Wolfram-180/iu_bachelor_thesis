@@ -1,3 +1,7 @@
+dart_code_metrics:
+  metrics:
+    maintainability-index:  true
+
 # This file configures the analyzer, which statically analyzes Dart code to
 # check for errors, warnings, and lints.
 #
