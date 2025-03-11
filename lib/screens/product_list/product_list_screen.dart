@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:iu_bachelor_thesis/models/product.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:iu_bachelor_thesis/stores/product_list_provider.dart';
 import 'package:iu_bachelor_thesis/widgets/user_switch.dart';
 
 import 'cart_button_overlay.dart';
 import 'product_list.dart';
 
-const _productPlaceholder = [
-  Product(title: 'Bananas', price: 3),
-  Product(title: 'Apples', price: 2),
-  Product(title: 'Pears', price: 2.5),
-  Product(title: 'Cherries', price: 1.2),
-];
-
-class ProductListScreen extends StatelessWidget {
+class ProductListScreen extends ConsumerWidget {
   const ProductListScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    const products = _productPlaceholder;
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('IU Bachelor Thesis'),
-        actions: [UserSwitch(isOn: true, onChanged: (_) {})],
+        actions: const [UserSwitch()],
       ),
-      body: const CartButtonOverlay(child: ProductList(products: products)),
+      body: ref
+          .watch(productListProvider)
+          .when(
+            data:
+                (products) =>
+                    CartButtonOverlay(child: ProductList(products: products)),
+            error: (error, _) => Center(child: Text(error.toString())),
+            loading: () => const Center(child: CircularProgressIndicator()),
+          ),
     );
   }
 }
