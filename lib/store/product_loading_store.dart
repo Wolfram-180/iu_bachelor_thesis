@@ -13,11 +13,10 @@ class ProductLoadingStore {
 
 class ProductLoadingStoreProvider extends FutureProvider<ProductLoadingStore> {
   ProductLoadingStoreProvider({
-    Key? key,
+    super.key,
     required ProductService productService,
     Widget? child,
   }) : super(
-         key: key,
          create:
              (context) => productService
                  .fetchProducts()

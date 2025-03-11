@@ -75,10 +75,8 @@ class CartStore extends ChangeNotifier {
 
 class CartStoreProvider
     extends ChangeNotifierProxyProvider<ProductStore, CartStore> {
-  CartStoreProvider({Key? key, Widget? child})
+  CartStoreProvider({super.key, super.child})
     : super(
-        key: key,
-        child: child,
         create: (context) => CartStore(),
         update:
             (context, productStore, cartStore) =>

@@ -14,7 +14,7 @@ class TotalPriceText extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          'Total: $totalPrice€',
+          'Total: $totalPrice\$',
           style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 24),
         ),
       ),
