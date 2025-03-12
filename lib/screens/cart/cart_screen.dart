@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:iu_bachelor_thesis/models/cart_item.dart';
-import 'package:iu_bachelor_thesis/models/product.dart';
+import 'package:iu_bachelor_thesis/redux/state.dart';
 import 'package:iu_bachelor_thesis/screens/cart/total_price_text.dart';
 import 'package:iu_bachelor_thesis/widgets/user_switch.dart';
 
 import 'cart_item_list.dart';
-
-const _placeHolderItems = [
-  CartItem(product: Product(title: 'Apples', price: 3), amount: 3),
-  CartItem(product: Product(title: 'Apples', price: 3), amount: 3),
-  CartItem(product: Product(title: 'Apples', price: 3), amount: 3),
-];
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -24,9 +19,14 @@ class CartScreen extends StatelessWidget {
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
-        children: const [
-          Expanded(child: CartItemList(items: _placeHolderItems)),
-          TotalPriceText(),
+        children: [
+          Expanded(
+            child: StoreConnector<AppState, List<CartItem>>(
+              converter: (store) => store.state.cart,
+              builder: (context, cart) => CartItemList(items: cart),
+            ),
+          ),
+          const TotalPriceText(),
         ],
       ),
     );
