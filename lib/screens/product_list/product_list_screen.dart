@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:iu_bachelor_thesis/models/product.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:iu_bachelor_thesis/stores/store_injector.dart';
 import 'package:iu_bachelor_thesis/widgets/user_switch.dart';
 
 import 'cart_button_overlay.dart';
 import 'product_list.dart';
-
-const _productPlaceholder = [
-  Product(title: 'Bananas', price: 3),
-  Product(title: 'Apples', price: 2),
-  Product(title: 'Pears', price: 2.5),
-  Product(title: 'Cherries', price: 1.2),
-];
 
 class ProductListScreen extends StatelessWidget {
   const ProductListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const products = _productPlaceholder;
+    final productStore = StoreInjector.of(context).productStore;
     return Scaffold(
       appBar: AppBar(
         title: const Text('IU Bachelor Thesis'),
-        actions: [UserSwitch(isOn: true, onChanged: (_) {})],
+        actions: const [UserSwitch()],
       ),
-      body: const CartButtonOverlay(child: ProductList(products: products)),
+      body: Observer(
+        builder:
+            (BuildContext context) =>
+                productStore.products.match(
+                  fulfilled:
+                      (products) => CartButtonOverlay(
+                        child: ProductList(products: products),
+                      ),
+                  rejected:
+                      (errorMessage) =>
+                          Center(child: Text(errorMessage.toString())),
+                  pending:
+                      () => const Center(child: CircularProgressIndicator()),
+                ) ??
+                Container(),
+      ),
     );
   }
 }

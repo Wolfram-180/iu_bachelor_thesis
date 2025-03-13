@@ -8,4 +8,6 @@ class Product {
   String get priceAsString => price.toStringAsFixed(2);
 
   const Product({required this.title, required this.price});
+
+  Product copyWithDiscount() => Product(title: title, price: price * 0.8);
 }
