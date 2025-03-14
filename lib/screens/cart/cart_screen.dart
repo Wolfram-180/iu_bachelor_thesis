@@ -1,4 +1,6 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:iu_bachelor_thesis/controllers/cart_controller.dart';
 import 'package:iu_bachelor_thesis/models/cart_item.dart';
 import 'package:iu_bachelor_thesis/models/product.dart';
 import 'package:iu_bachelor_thesis/screens/cart/total_price_text.dart';
