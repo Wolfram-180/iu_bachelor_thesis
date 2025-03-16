@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:iu_bachelor_thesis/models/product.dart';
 

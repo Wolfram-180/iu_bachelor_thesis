@@ -1,48 +1,70 @@
 import 'package:get/get.dart';
-import '../models/cart_item.dart';
-import '../models/product.dart';
+import 'package:iu_bachelor_thesis/models/cart_item.dart';
+import 'package:iu_bachelor_thesis/models/product.dart';
+import 'package:iu_bachelor_thesis/models/products_state.dart';
 import 'product_controller.dart';
 
 class CartController extends GetxController {
-  final RxMap<String, int> cartItems = <String, int>{}.obs;
+  final _cart = <Product, int>{}.obs;
+  final _totalPrice = 0.0.obs;
+  final _numberOfProducts = 0.obs;
 
-  void addToCart(Product product) {
-    final currentCount = cartItems[product.title] ?? 0;
-    cartItems[product.title] = currentCount + 1;
+  RxMap<Product, int> get cart => _cart;
+  RxDouble get totalPrice => _totalPrice;
+  RxInt get numberOfProducts => _numberOfProducts;
+
+  @override
+  void onInit() {
+    super.onInit();
+    final productController = Get.find<ProductController>();
+    ever(productController.productsState, (_) => _updatePrices());
   }
 
-  void removeFromCart(Product product) {
-    final currentCount = cartItems[product.title] ?? 0;
-    if (currentCount <= 1) {
-      cartItems.remove(product.title);
-    } else {
-      cartItems[product.title] = currentCount - 1;
+  void increaseQuantity(Product product) {
+    _cart[product] = (_cart[product] ?? 0) + 1;
+    _updateCart();
+  }
+
+  void decreaseQuantity(Product product) {
+    if (_cart.containsKey(product) && _cart[product]! > 0) {
+      _cart[product] = _cart[product]! - 1;
+      if (_cart[product] == 0) {
+        _cart.remove(product);
+      }
+      _updateCart();
     }
   }
 
-  int getCount(Product product) => cartItems[product.title] ?? 0;
-
-  double get totalPrice {
-    final productController = Get.find<ProductController>();
-    double total = 0;
-    cartItems.forEach((title, count) {
-      final product = productController.products.firstWhere(
-        (p) => p.title == title,
-      );
-      total += product.price * count;
-    });
-    return total;
+  void _updateCart() {
+    _totalPrice.value = _cart.entries.fold(
+      0.0,
+      (sum, entry) => sum + entry.key.price * entry.value,
+    );
+    _numberOfProducts.value = _cart.length;
   }
 
-  int get totalItems => cartItems.values.fold(0, (sum, count) => sum + count);
+  List<CartItem> toCartItems() =>
+      _cart.entries
+          .map((entry) => CartItem(product: entry.key, amount: entry.value))
+          .toList();
 
-  List<CartItem> get cartItemsList {
+  void _updatePrices() {
     final productController = Get.find<ProductController>();
-    return cartItems.entries.map((entry) {
-      final product = productController.products.firstWhere(
-        (p) => p.title == entry.key,
-      );
-      return CartItem(product: product, amount: entry.value);
-    }).toList();
+    final updatedCart = <Product, int>{};
+
+    final state = productController.productsState.value;
+    if (state is ProductsLoaded) {
+      for (final entry in _cart.entries) {
+        final updatedProduct = state.products.firstWhereOrNull(
+          (product) => product.title == entry.key.title,
+        );
+        if (updatedProduct != null) {
+          updatedCart[updatedProduct] = entry.value;
+        }
+      }
+
+      _cart.value = updatedCart;
+      _updateCart();
+    }
   }
 }

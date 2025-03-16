@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'cart_button.dart';
 
 class CartButtonOverlay extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
-  var isLoggedIn = false.obs;
+  var isSignedIn = false.obs;
 
-  void toggleLogin() {
-    isLoggedIn.value = !isLoggedIn.value;
+  void updateSignInStatus(bool status) {
+    isSignedIn.value = status;
   }
 }
