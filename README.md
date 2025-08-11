@@ -16,7 +16,7 @@ Application used in Bachelor Thesis
 
 Flutter supports a variety of state management solutions, each with distinct paradigms and trade-offs. Managing application state efficiently is crucial for building scalable and maintainable apps, especially as they grow in complexity. Developers often face challenges in selecting the most suitable state management library for their projects, as the options vary in terms of complexity, performance, and scalability.
 
-**Aim:** Conduct a comparative study of popular state management solutions in Flutter (Riverpod, Bloc, Redux, etc.), and evaluate their performance, ease of use, and maintainability to provide actionable recommendations for developers.
+**Aim:** Conduct a comparative study of popular state management solutions in Flutter (Provider, Riverpod, Bloc, Redux, GetX, Mobx), and evaluate their performance, ease of use, and maintainability to provide actionable recommendations for developers.
 
 ---
 
